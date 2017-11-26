@@ -19,7 +19,7 @@ import uk.co.ribot.androidboilerplate.util.RxUtil;
 @ConfigPersistent
 public class MainPresenter extends BasePresenter<MainMvpView> {
 
-    private final DataManager mDataManager;
+    private final DataManager mDataManager;// single
     private Disposable mDisposable;
 
     @Inject

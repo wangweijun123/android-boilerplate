@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Collections;
@@ -18,6 +20,7 @@ import uk.co.ribot.androidboilerplate.R;
 import uk.co.ribot.androidboilerplate.data.SyncService;
 import uk.co.ribot.androidboilerplate.data.model.Ribot;
 import uk.co.ribot.androidboilerplate.ui.base.BaseActivity;
+import uk.co.ribot.androidboilerplate.ui.ribot.RibotListActivity;
 import uk.co.ribot.androidboilerplate.util.DialogFactory;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
@@ -29,6 +32,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Inject RibotsAdapter mRibotsAdapter;
 
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.startRibort)
+    Button startRibort;
 
     /**
      * Return an Intent to start this Activity.
@@ -48,15 +53,24 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        startRibort.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RibotListActivity.class));
+            }
+        });
+
         mRecyclerView.setAdapter(mRibotsAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mMainPresenter.attachView(this);
-        mMainPresenter.loadRibots();
+        mMainPresenter.loadRibots();// 加载数据前先关联view
 
         if (getIntent().getBooleanExtra(EXTRA_TRIGGER_SYNC_FLAG, true)) {
             startService(SyncService.getStartIntent(this));
         }
     }
+
+
 
     @Override
     protected void onDestroy() {
