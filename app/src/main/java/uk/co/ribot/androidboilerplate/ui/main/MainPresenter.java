@@ -15,7 +15,7 @@ import uk.co.ribot.androidboilerplate.data.model.Ribot;
 import uk.co.ribot.androidboilerplate.injection.ConfigPersistent;
 import uk.co.ribot.androidboilerplate.ui.base.BasePresenter;
 import uk.co.ribot.androidboilerplate.util.RxUtil;
-
+// 在当前组件中单例
 @ConfigPersistent
 public class MainPresenter extends BasePresenter<MainMvpView> {
 

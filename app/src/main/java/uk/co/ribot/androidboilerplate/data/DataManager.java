@@ -26,7 +26,8 @@ public class DataManager {
     private final RibotsService mRibotsService;
     private final DatabaseHelper mDatabaseHelper;
     private final PreferencesHelper mPreferencesHelper;
-
+    // RibotsService 初始化会去ApplicationComponent对应ApplicationModule中找，还真找到了
+    //
     @Inject
     public DataManager(RibotsService ribotsService, PreferencesHelper preferencesHelper,
                        DatabaseHelper databaseHelper) {
