@@ -10,15 +10,21 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
+import uk.co.ribot.androidboilerplate.data.model.MyResp;
 import uk.co.ribot.androidboilerplate.data.model.Ribot;
 import uk.co.ribot.androidboilerplate.util.MyGsonTypeAdapterFactory;
 
 public interface RibotsService {
 
-    String ENDPOINT = "https://api.ribot.io/";
+//    String ENDPOINT = "https://api.ribot.io/";
+    String ENDPOINT = "http://mapi.letvstore.com/";
 
     @GET("ribots")
     Observable<List<Ribot>> getRibots();
+
+    @GET("mapi/edit/recommend")
+    Observable<MyResp> getRankApps(@Query("pagefrom") String pagefrom, @Query("pagesize") String pagesize, @Query("code") String code);
 
     /******** Helper class that sets up a new services *******/
     class Creator {
@@ -32,6 +38,7 @@ public interface RibotsService {
                     .baseUrl(RibotsService.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .client(OkHttpUtils.getInstance().getOkHttpClient())
                     .build();
             return retrofit.create(RibotsService.class);
         }

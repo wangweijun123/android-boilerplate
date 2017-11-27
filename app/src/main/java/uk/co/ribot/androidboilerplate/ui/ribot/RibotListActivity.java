@@ -22,6 +22,6 @@ public class RibotListActivity extends BaseActivity  implements RibotMvpView{
         setContentView(R.layout.activity_ribot_list);
 
         ribotPresenter.attachView(this);
-        ribotPresenter.syncRibots();
+        ribotPresenter.getRankApps();
     }
 }

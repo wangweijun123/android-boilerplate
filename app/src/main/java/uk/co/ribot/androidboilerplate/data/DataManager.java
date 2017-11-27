@@ -11,6 +11,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import uk.co.ribot.androidboilerplate.data.local.DatabaseHelper;
 import uk.co.ribot.androidboilerplate.data.local.PreferencesHelper;
+import uk.co.ribot.androidboilerplate.data.model.MyResp;
 import uk.co.ribot.androidboilerplate.data.model.Ribot;
 import uk.co.ribot.androidboilerplate.data.remote.RibotsService;
 
@@ -48,4 +49,7 @@ public class DataManager {
         return mDatabaseHelper.getRibots().distinct();
     }
 
+    public Observable<MyResp> getRankApps() {
+        return mRibotsService.getRankApps("1", "1", "RANK_HOT");
+    }
 }

@@ -10,6 +10,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import uk.co.ribot.androidboilerplate.data.DataManager;
+import uk.co.ribot.androidboilerplate.data.model.MyResp;
 import uk.co.ribot.androidboilerplate.data.model.Ribot;
 import uk.co.ribot.androidboilerplate.ui.base.BasePresenter;
 
@@ -56,5 +57,40 @@ public class RibotPresenter extends BasePresenter<RibotMvpView> {
                     }
                 });
     }
+
+
+
+    public void getRankApps() {
+        mDataManager.getRankApps().observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<MyResp>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i("wang", "onSubscribe ");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull MyResp ribots) {
+//                        if (ribots.isEmpty()) {
+//                            getMvpView().showRibotsEmpty();
+//                        } else {
+//                            getMvpView().showRibots(ribots);
+//                        }
+                        Log.i("wang", "onNext ribots.status: "+ribots.status);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i("wang", "onError");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i("wang", "onComplete");
+                    }
+                });
+    }
+
+
 
 }
