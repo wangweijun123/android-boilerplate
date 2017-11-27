@@ -10,7 +10,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
+import uk.co.ribot.androidboilerplate.data.model.Contributor;
 import uk.co.ribot.androidboilerplate.data.model.MyResp;
 import uk.co.ribot.androidboilerplate.data.model.Ribot;
 import uk.co.ribot.androidboilerplate.util.MyGsonTypeAdapterFactory;
@@ -18,13 +20,21 @@ import uk.co.ribot.androidboilerplate.util.MyGsonTypeAdapterFactory;
 public interface RibotsService {
 
 //    String ENDPOINT = "https://api.ribot.io/";
-    String ENDPOINT = "http://mapi.letvstore.com/";
+//    String ENDPOINT = "http://mapi.letvstore.com/";
+    String ENDPOINT = "https://api.github.com";
 
     @GET("ribots")
     Observable<List<Ribot>> getRibots();
 
     @GET("mapi/edit/recommend")
     Observable<MyResp> getRankApps(@Query("pagefrom") String pagefrom, @Query("pagesize") String pagesize, @Query("code") String code);
+
+    // https://api.github.com/repos/square/retrofit/contributors
+    @GET("/repos/{owner}/{repo}/contributors")
+    Observable<List<Contributor>> contributors(
+            @Path("owner") String owner,
+            @Path("repo") String repo);
+
 
     /******** Helper class that sets up a new services *******/
     class Creator {

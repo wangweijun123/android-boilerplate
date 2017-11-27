@@ -7,4 +7,8 @@ import uk.co.ribot.androidboilerplate.ui.base.MvpView;
  */
 
 public interface RibotMvpView extends MvpView{
+
+    void showDataLoadSuccessTip();
+
+    void showDataLoadErrorTip();
 }

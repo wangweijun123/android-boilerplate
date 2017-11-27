@@ -1,6 +1,7 @@
 package uk.co.ribot.androidboilerplate.ui.ribot;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -22,6 +23,19 @@ public class RibotListActivity extends BaseActivity  implements RibotMvpView{
         setContentView(R.layout.activity_ribot_list);
 
         ribotPresenter.attachView(this);
-        ribotPresenter.getRankApps();
+//        ribotPresenter.getRankApps();
+        ribotPresenter.contributors();
+
+//        ribotPresenter.contributorsStepByStep();
+    }
+
+    @Override
+    public void showDataLoadSuccessTip() {
+        Toast.makeText(getApplicationContext(), "获取数据成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDataLoadErrorTip() {
+        Toast.makeText(getApplicationContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
     }
 }
