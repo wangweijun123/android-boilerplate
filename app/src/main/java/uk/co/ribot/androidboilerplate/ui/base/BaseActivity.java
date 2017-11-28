@@ -3,6 +3,7 @@ package uk.co.ribot.androidboilerplate.ui.base;
 import android.os.Bundle;
 import android.support.v4.util.LongSparseArray;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -65,6 +66,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public ActivityComponent activityComponent() {
+        Log.i("wang", "mActivityComponent:"+mActivityComponent);
         return mActivityComponent;
     }
 

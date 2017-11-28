@@ -1,5 +1,7 @@
 package uk.co.ribot.androidboilerplate.ui.main;
 
+import android.util.Log;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,6 +43,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
     public void loadRibots() {
         checkViewAttached();
         RxUtil.dispose(mDisposable);
+        Log.i("wang", "loadRibots mDataManager:"+mDataManager);
         mDataManager.getRibots()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

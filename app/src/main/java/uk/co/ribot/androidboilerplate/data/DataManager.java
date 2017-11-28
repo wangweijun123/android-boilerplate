@@ -41,6 +41,7 @@ public class DataManager {
     }
 
     public Observable<Ribot> syncRibots() {
+        Log.i("wang", "syncRibots mRibotsService:"+mRibotsService);
         return mRibotsService.getRibots()
                 .concatMap(new Function<List<Ribot>, ObservableSource<? extends Ribot>>() {
                     @Override
@@ -60,7 +61,7 @@ public class DataManager {
     }
 
     public Observable<List<Contributor>> contributors() {
-        Log.i("wang", "mRibotsService.contributors,tid:"+Thread.currentThread().getId());
+        Log.i("wang", "mRibotsService:"+mRibotsService+", tid:"+Thread.currentThread().getId());
         return mRibotsService.contributors("square", "retrofit");
     }
 

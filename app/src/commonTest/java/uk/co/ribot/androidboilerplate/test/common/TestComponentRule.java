@@ -8,9 +8,7 @@ import org.junit.runners.model.Statement;
 
 import uk.co.ribot.androidboilerplate.BoilerplateApplication;
 import uk.co.ribot.androidboilerplate.data.DataManager;
-import uk.co.ribot.androidboilerplate.test.common.injection.component.DaggerTestComponent;
 import uk.co.ribot.androidboilerplate.test.common.injection.component.TestComponent;
-import uk.co.ribot.androidboilerplate.test.common.injection.module.ApplicationTestModule;
 
 /**
  * Test rule that creates and sets a Dagger TestComponent into the application overriding the
@@ -27,9 +25,9 @@ public class TestComponentRule implements TestRule {
     public TestComponentRule(Context context) {
         mContext = context;
         BoilerplateApplication application = BoilerplateApplication.get(context);
-        mTestComponent = DaggerTestComponent.builder()
+        mTestComponent = null;/*DaggerTestComponent.builder()
                 .applicationTestModule(new ApplicationTestModule(application))
-                .build();
+                .build();*/
     }
 
     public Context getContext() {

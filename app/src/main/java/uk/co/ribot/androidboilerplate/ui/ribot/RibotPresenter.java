@@ -89,6 +89,7 @@ public class RibotPresenter extends BasePresenter<RibotMvpView> {
 
 
     public void contributors() {
+        Log.i("wang", "contributors mDataManager:"+mDataManager);
         mDataManager.contributors().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<List<Contributor>>() {

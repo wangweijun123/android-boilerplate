@@ -16,6 +16,9 @@ import uk.co.ribot.androidboilerplate.ui.base.BaseActivity;
 @Component(dependencies = ApplicationComponent.class)
 public interface ConfigPersistentComponent {
 
+    // ActivityComponent这是子组件,
+    // ConfigPersistentComponent是ActivityComponent父组件,
+    // 而 ConfigPersistentComponent 又依赖ApplicationComponent
     ActivityComponent activityComponent(ActivityModule activityModule);
 
 }
