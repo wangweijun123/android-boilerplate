@@ -104,7 +104,7 @@ public class RibotPresenter extends BasePresenter<RibotMvpView> {
                         for (Contributor contributor: list) {
                             Log.i("wang", "contributor: "+contributor);
                         }
-                        getMvpView().showDataLoadSuccessTip();
+                        getMvpView().showDataLoadSuccessTip(list);
                     }
 
                     @Override

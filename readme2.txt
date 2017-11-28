@@ -19,3 +19,6 @@ DaggerConfigPersistentComponent$ActivityComponentImpl@fb6b6ad
 Retrofit$1@dd8b8f0
 
 
+统一空界面，错误界面，loading界面，使用动态的view加载
+
+

@@ -7,6 +7,7 @@ package uk.co.ribot.androidboilerplate.data.model;
 public class Contributor {
     public String login;
     public int contributions;
+    public String avatar_url;
 
     @Override
     public String toString() {
