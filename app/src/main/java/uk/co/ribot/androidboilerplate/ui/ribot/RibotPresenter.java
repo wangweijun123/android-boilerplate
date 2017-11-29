@@ -96,6 +96,7 @@ public class RibotPresenter extends BasePresenter<RibotMvpView> {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i("wang", "onSubscribe ");
+                        getMvpView().showLoading();
                     }
 
                     @Override
@@ -110,14 +111,23 @@ public class RibotPresenter extends BasePresenter<RibotMvpView> {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Log.i("wang", "onError");
+                        getMvpView().hideLoading();
                         getMvpView().showDataLoadErrorTip();
+
+                        getMvpView().showErrorUI();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.i("wang", "onComplete");
+                        getMvpView().hideLoading();
                     }
                 });
+    }
+
+    public void refresh() {
+        getMvpView().hideErrorUI();
+        contributors();
     }
 
     public void contributorsStepByStep() {

@@ -100,4 +100,23 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         Toast.makeText(this, R.string.empty_ribots, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showErrorUI() {
+
+    }
+
+    @Override
+    public void hideErrorUI() {
+
+    }
 }
