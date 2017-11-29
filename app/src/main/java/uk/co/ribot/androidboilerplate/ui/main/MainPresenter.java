@@ -13,6 +13,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import uk.co.ribot.androidboilerplate.data.DataManager;
+import uk.co.ribot.androidboilerplate.data.model.Contributor;
 import uk.co.ribot.androidboilerplate.data.model.Ribot;
 import uk.co.ribot.androidboilerplate.injection.ConfigPersistent;
 import uk.co.ribot.androidboilerplate.ui.base.BasePresenter;
@@ -75,4 +76,43 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                 });
     }
 
+
+    public void loadContributors() {
+        checkViewAttached();
+        RxUtil.dispose(mDisposable);
+        Log.i("wang", "loadContributors mDataManager:"+mDataManager);
+        mDataManager.getContributors()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<Contributor>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        mDisposable = d;
+                    }
+
+                    @Override
+                    public void onNext(@NonNull List<Contributor> contributors) {
+                        Log.i("wang", "onNext ...");
+                        for (Contributor con:contributors) {
+                            Log.i("wang", "contributor:"+con);
+                        }
+                        if (contributors.isEmpty()) {
+                            getMvpView().showRibotsEmpty();
+                        } else {
+//                            getMvpView().showRibots(ribots);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Timber.e(e, "There was an error loading the ribots.");
+                        getMvpView().showError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 }

@@ -3,6 +3,7 @@ package uk.co.ribot.androidboilerplate.data.local;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
 import com.squareup.sqlbrite2.BriteDatabase;
 import com.squareup.sqlbrite2.SqlBrite;
@@ -20,6 +21,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import uk.co.ribot.androidboilerplate.data.model.Contributor;
 import uk.co.ribot.androidboilerplate.data.model.Ribot;
 
 @Singleton
@@ -65,6 +67,30 @@ public class DatabaseHelper {
         });
     }
 
+    public Observable<Contributor> setContributors(final Collection<Contributor> newContributors) {
+        return Observable.create(new ObservableOnSubscribe<Contributor>() {
+            @Override
+            public void subscribe(ObservableEmitter<Contributor> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
+                BriteDatabase.Transaction transaction = mDb.newTransaction();
+                try {
+                    mDb.delete(Db.RibotProfileTable.TABLE_NAME_CONTRIBUTOR, null);
+                    for (Contributor contributor : newContributors) {
+                        Log.i("wang", "tid:"+Thread.currentThread().getId()+", mDb:"+mDb + " insert contributor:"+contributor);
+                        long result = mDb.insert(Db.RibotProfileTable.TABLE_NAME_CONTRIBUTOR,
+                                Db.RibotProfileTable.toContentValues(contributor),
+                                SQLiteDatabase.CONFLICT_REPLACE);
+                        if (result >= 0) emitter.onNext(contributor);
+                    }
+                    transaction.markSuccessful();
+                    emitter.onComplete();
+                } finally {
+                    transaction.end();
+                }
+            }
+        });
+    }
+
     public Observable<List<Ribot>> getRibots() {
         return mDb.createQuery(Db.RibotProfileTable.TABLE_NAME,
                 "SELECT * FROM " + Db.RibotProfileTable.TABLE_NAME)
@@ -72,6 +98,17 @@ public class DatabaseHelper {
                     @Override
                     public Ribot apply(@NonNull Cursor cursor) throws Exception {
                         return Ribot.create(Db.RibotProfileTable.parseCursor(cursor));
+                    }
+                });
+    }
+
+    public Observable<List<Contributor>> getContributors() {
+        return mDb.createQuery(Db.RibotProfileTable.TABLE_NAME_CONTRIBUTOR,
+                "SELECT * FROM " + Db.RibotProfileTable.TABLE_NAME_CONTRIBUTOR)
+                .mapToList(new Function<Cursor, Contributor>() {
+                    @Override
+                    public Contributor apply(@NonNull Cursor cursor) throws Exception {
+                        return Db.RibotProfileTable.parseCursor2(cursor);
                     }
                 });
     }

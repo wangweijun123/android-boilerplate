@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import uk.co.ribot.androidboilerplate.BoilerplateApplication;
-import uk.co.ribot.androidboilerplate.data.model.Ribot;
+import uk.co.ribot.androidboilerplate.data.model.Contributor;
 import uk.co.ribot.androidboilerplate.util.AndroidComponentUtil;
 import uk.co.ribot.androidboilerplate.util.NetworkUtil;
 import uk.co.ribot.androidboilerplate.util.RxUtil;
@@ -51,16 +51,16 @@ public class SyncService extends Service {
         }
 
         RxUtil.dispose(mDisposable);
-        mDataManager.syncRibots()
+        mDataManager.syncContributors()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Ribot>() {
+                .subscribe(new Observer<Contributor>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         mDisposable = d;
                     }
 
                     @Override
-                    public void onNext(@NonNull Ribot ribot) {
+                    public void onNext(@NonNull Contributor ribot) {
                     }
 
                     @Override

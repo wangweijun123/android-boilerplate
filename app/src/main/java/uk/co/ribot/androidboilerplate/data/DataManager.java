@@ -52,9 +52,27 @@ public class DataManager {
                 });
     }
 
+    public Observable<Contributor> syncContributors() {
+        Log.i("wang", "syncContributors mRibotsService:"+mRibotsService);
+        return mRibotsService.contributors("square", "retrofit")
+                .concatMap(new Function<List<Contributor>, ObservableSource<? extends Contributor>>() {
+                    @Override
+                    public ObservableSource<? extends Contributor> apply(@NonNull List<Contributor> ribots)
+                            throws Exception {
+                        return mDatabaseHelper.setContributors(ribots);
+                    }
+                });
+    }
+
+
     public Observable<List<Ribot>> getRibots() {
         return mDatabaseHelper.getRibots().distinct();
     }
+
+    public Observable<List<Contributor>> getContributors() {
+        return mDatabaseHelper.getContributors().distinct();
+    }
+
 
     public Observable<MyResp> getRankApps() {
         return mRibotsService.getRankApps("1", "1", "RANK_HOT");
