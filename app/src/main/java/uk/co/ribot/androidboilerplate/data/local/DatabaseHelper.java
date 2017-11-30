@@ -80,7 +80,10 @@ public class DatabaseHelper {
                         long result = mDb.insert(Db.RibotProfileTable.TABLE_NAME_CONTRIBUTOR,
                                 Db.RibotProfileTable.toContentValues(contributor),
                                 SQLiteDatabase.CONFLICT_REPLACE);
-                        if (result >= 0) emitter.onNext(contributor);
+                        if (result >= 0) {
+                            Log.i("wang", " emitter 发射 contributor:"+contributor);
+                            emitter.onNext(contributor);
+                        }
                     }
                     transaction.markSuccessful();
                     emitter.onComplete();

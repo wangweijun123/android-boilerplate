@@ -59,6 +59,7 @@ public class DataManager {
                     @Override
                     public ObservableSource<? extends Contributor> apply(@NonNull List<Contributor> ribots)
                             throws Exception {
+                        Log.i("wang", "apply tid:"+Thread.currentThread().getId());
                         return mDatabaseHelper.setContributors(ribots);
                     }
                 });

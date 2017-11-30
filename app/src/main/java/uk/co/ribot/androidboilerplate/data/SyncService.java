@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.IBinder;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -61,6 +62,7 @@ public class SyncService extends Service {
 
                     @Override
                     public void onNext(@NonNull Contributor ribot) {
+                        Log.i("wang", "onNext apply tid:"+Thread.currentThread().getId()+", ribot:"+ribot);
                     }
 
                     @Override
@@ -71,6 +73,7 @@ public class SyncService extends Service {
 
                     @Override
                     public void onComplete() {
+                        Log.i("wang", "onComplete apply tid:"+Thread.currentThread());
                         Timber.i("Synced successfully!");
                         stopSelf(startId);
                     }
@@ -78,6 +81,8 @@ public class SyncService extends Service {
 
         return START_STICKY;
     }
+
+
 
     @Override
     public void onDestroy() {

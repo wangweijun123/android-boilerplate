@@ -154,7 +154,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
 
     Connection connection = chain.connection();
     Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
-    String requestStartMessage ="--> " + request.method() + ' ' + request.url() + ' ' + protocol+"  tid:"+Thread.currentThread().getId();
+    String requestStartMessage ="--> " + request.method() + ' ' + request.url() + ' ' + protocol+"  tid:"+Thread.currentThread().getId()+", thread name:"+Thread.currentThread().getName();
     if (!logHeaders && hasRequestBody) {
       requestStartMessage += " (" + requestBody.contentLength() + "-byte body)";
     }

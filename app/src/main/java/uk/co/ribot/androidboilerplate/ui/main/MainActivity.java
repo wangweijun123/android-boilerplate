@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mMainPresenter.attachView(this);
 //        mMainPresenter.loadRibots();// 加载数据前先关联view
 
-        mMainPresenter.loadContributors();
+//        mMainPresenter.loadContributors();
 
         if (getIntent().getBooleanExtra(EXTRA_TRIGGER_SYNC_FLAG, true)) {
             startService(SyncService.getStartIntent(this));
