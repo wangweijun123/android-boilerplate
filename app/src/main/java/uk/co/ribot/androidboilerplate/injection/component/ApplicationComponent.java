@@ -15,6 +15,8 @@ import uk.co.ribot.androidboilerplate.injection.ApplicationContext;
 import uk.co.ribot.androidboilerplate.injection.module.ApplicationModule;
 import uk.co.ribot.androidboilerplate.util.RxEventBus;
 
+// 在这里产生的实例是在整个应用中是单例, 因为这个ApplicationComponent实例是单例
+// component声明的单例，不能说明module中所能提供的实例就是单例，当然scope域是一致(如果定义)
 @Singleton
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
