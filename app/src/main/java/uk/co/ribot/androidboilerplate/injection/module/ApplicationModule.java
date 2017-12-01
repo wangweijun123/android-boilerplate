@@ -27,7 +27,7 @@ public class ApplicationModule {
     }
 
     @Provides
-    @ApplicationContext
+    @ApplicationContext // module中以自定义注解的形式注解实例，其实就是一个名字，不是scope
     Context provideContext() {
         return mApplication;
     }
