@@ -11,7 +11,11 @@ import uk.co.ribot.androidboilerplate.ui.base.BaseActivity;
  * survives configuration changes.
  * Use the {@link ConfigPersistent} scope to annotate dependencies that need to survive
  * configuration changes (for example Presenters).
- */
+ * 组件不一定需要定义对应module类
+ *
+ *
+ *
+ * */
 @ConfigPersistent
 @Component(dependencies = ApplicationComponent.class)
 public interface ConfigPersistentComponent {
